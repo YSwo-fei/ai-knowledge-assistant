@@ -1,29 +1,29 @@
-# Study Summary
+# 学习总结
 
-## Purpose
+## 作用
 
-This file is a compact review sheet for the current stage of learning.
+这个文档是当前阶段的复习提纲，帮助我快速回顾已经掌握的知识点。
 
-## Python Basics
+## Python 基础
 
-- Variable assignment uses `=`
-- Comparison uses `==`, `<`, `>`, `<=`, `>=`
-- Strings must be wrapped in quotes
-- Python uses indentation instead of braces
+- 赋值用 `=`
+- 比较用 `==`、`<`、`>`、`<=`、`>=`
+- 字符串必须加引号
+- Python 用缩进代替大括号
 
-Example:
+示例：
 
 ```python
 name = "feiyuai"
 age = 18
 
 if age >= 18:
-    print("adult")
+    print("成年")
 ```
 
-## Common Structures
+## 常用数据结构
 
-### List
+### 列表
 
 ```python
 items = ["a", "b", "c"]
@@ -31,7 +31,7 @@ items[0]
 len(items)
 ```
 
-### Dict
+### 字典
 
 ```python
 data = {"name": "feiyuai"}
@@ -39,37 +39,41 @@ data["name"]
 data.get("age", 0)
 ```
 
-## File Operations
+## 文件操作
+
+读取文件：
 
 ```python
 with open("file.txt", "r", encoding="utf-8") as f:
     content = f.read()
 ```
 
+写入文件：
+
 ```python
 with open("file.txt", "w", encoding="utf-8") as f:
     f.write("hello")
 ```
 
-## Git Review
+## Git 复习
 
-- `git add`: stage changes
-- `git commit`: create a local snapshot
-- `git push`: upload to GitHub
+- `git add`：加入暂存区
+- `git commit`：生成本地提交
+- `git push`：推送到 GitHub
 
-## FastAPI Review
+## FastAPI 复习
 
 ### GET
 
-Used to fetch data from the server.
+用于向服务器获取数据。
 
 ### POST
 
-Used to send data to the server.
+用于向服务器提交数据。
 
 ### Pydantic
 
-`BaseModel` is used to define request data format.
+`BaseModel` 用来定义请求数据格式。
 
 ```python
 from pydantic import BaseModel
@@ -79,20 +83,20 @@ class DocumentCreate(BaseModel):
     context: str
 ```
 
-## `422` Meaning
+## `422` 错误含义
 
-`422 Unprocessable Content` means:
+`422 Unprocessable Content` 表示：
 
-- the request reached the server
-- but the body data does not match the expected schema
+- 请求已经到达后端
+- 但是请求体数据不符合模型要求
 
-Typical reasons:
+常见原因：
 
-- missing field
-- wrong field name
-- wrong field type
+- 缺少字段
+- 字段名错误
+- 字段类型错误
 
-## Current Practical Files
+## 当前实践文件
 
 - `todo.py`
 - `work.py`
@@ -101,10 +105,10 @@ Typical reasons:
 - `model.py`
 - `datebase.py`
 
-## Current Focus
+## 当前学习重点
 
-The current learning focus is:
+当前最重要的三件事：
 
-1. understand FastAPI request handling
-2. connect request models to database models
-3. build document CRUD step by step
+1. 理解 FastAPI 如何接收和校验请求
+2. 理解请求模型和数据库模型的区别
+3. 把文档 CRUD 一步一步做出来
