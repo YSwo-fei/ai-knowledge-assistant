@@ -1,220 +1,282 @@
-# AI 知识库助手 — Week 1 学习记录
+# AI Knowledge Assistant Learning Notes
 
-> 📅 2026.07.10 ~ 2026.07.11  
-> 👤 feiyuai  
-> 🎯 目标：6 周从零到 RAG 知识库系统上线
+This repository records my early-stage learning and practice while building toward an AI knowledge assistant project.
 
----
+## Current Stage
 
-## Day 1：环境搭建 + Hello World
+We are in the transition from Python basics to backend development with FastAPI.
 
-- ✅ Python 3.13 已安装
-- ✅ VS Code 开发环境
-- ✅ Git 2.53 配置完成
-- ✅ 第一个程序：`print("Hello World")`
+Completed so far:
 
-**核心概念：**
-- Python 是解释型语言，写完就能跑
-- `print()` 把内容输出到屏幕
-- `#` 开头的是注释，Python 不执行
+- Python basics: variables, conditions, loops, functions
+- Common data structures: list and dict
+- File reading and writing
+- Basic Git workflow
+- AI-assisted coding with a CLI todo app
+- FastAPI first steps: routes, request models, and debugging `422` errors
 
----
+## Files In This Repository
 
-## Day 2：Python 生存级语法
+- `todo.py`: command-line todo application with JSON persistence
+- `todo.json`: sample persisted todo data
+- `work.py`: word frequency counting practice
+- `main.py`: current FastAPI practice entry file
+- `schemy.py`: current Pydantic request model practice file
+- `model.py`: current SQLAlchemy model practice file
+- `datebase.py`: current database connection practice file
 
-### 变量与数据类型
+Note:
+
+- Some filenames are intentionally kept as-is because they reflect the current learning state.
+- A few names are not yet standardized, such as `datebase.py`, `schemy.py`, and `requirement.txt`.
+- These will be cleaned up in the next refactor step after the learning concepts are stable.
+
+## What I Learned
+
+### 1. Python Basics
+
+Important ideas:
+
+- Variables store data
+- Strings need quotes
+- `if / else` controls branching
+- `for` and `while` control repetition
+- `def` defines a function
+- Indentation is part of Python syntax
+
+Example:
+
 ```python
-name = "飞宇"        # str  字符串
-age = 22             # int  整数
-score = 95.5         # float 浮点数
-is_pass = True       # bool 布尔值
-```
+age = 16
 
-### 条件判断（if/elif/else）
-```python
 if age >= 18:
-    print("已成年")
+    print("adult")
 else:
-    print("未成年")
-```
-⚠️ Python 没有花括号 `{}`，用**缩进**表示代码块。冒号不能忘！
-
-### 循环（for/while）
-```python
-for i in range(5):          # 0,1,2,3,4
-    print(i)
-
-while count <= 5:           # 条件成立就一直跑
-    count += 1
+    print("minor")
 ```
 
-### 函数（def）
-```python
-def add(a, b):
-    """返回两个数的和"""
-    return a + b
-```
-- `def` 定义函数，不写参数类型和返回类型
-- Python 靠缩进判断函数体范围
+### 2. List and Dict
 
-### 关键对比：Python vs C++
-
-| 概念 | C++ | Python |
-|------|-----|--------|
-| 变量 | `int x = 5;` | `x = 5` |
-| 代码块 | `{ }` | 缩进（4空格） |
-| if | `if (x > 0) { }` | `if x > 0:` |
-| for | `for (int i=0; i<n; i++)` | `for i in range(n):` |
-| 函数 | `int add(int a) { }` | `def add(a):` |
-| 空值 | `nullptr` | `None` |
-
-### ⚠️ 踩坑记录
-
-| 坑 | 原因 | 教训 |
-|----|------|------|
-| `=` vs `<` | `age = 10` 是赋值，`age < 15` 是比较 | 一个等号赋值，比较用 `<` `>` `==` |
-| `age < 15` 写在 if 里 | 算出了 True/False 但没存也没输出 | 比较结果必须赋值或 print |
-
----
-
-## Day 3：数据结构 + 文件读写
-
-### 列表 list
-```python
-fruits = ["苹果", "香蕉", "橘子"]
-fruits[0]       # "苹果" — 下标从0开始
-fruits[-1]      # "橘子" — 负数倒着数
-fruits[1:3]     # ["香蕉", "橘子"] — 切片
-fruits.append("西瓜")   # 追加
-len(fruits)     # 长度
-```
-
-### 字典 dict
-```python
-student = {"name": "飞宇", "age": 22, "score": 95}
-student["name"]           # "飞宇"
-student["weight"] = 70    # 添加新键值对
-student.get("address", 0) # 安全取值，没有就返回默认值
-```
-
-### 文件读写
-```python
-# 读
-with open("file.txt", "r", encoding="utf-8") as f:
-    content = f.read()        # 读全部
-    words = content.split()   # 按空格切词
-
-# 写
-with open("output.txt", "w", encoding="utf-8") as f:
-    f.write("Hello\n")
-```
-
-### 综合练习：单词统计程序 ✅
-
-实现了 `word_count.py`：读取文件 → 切词 → 字典统计词频
+List is used to store ordered data:
 
 ```python
-counts[word] = counts.get(word, 0) + 1  # 核心一行
+fruits = ["apple", "banana", "orange"]
+print(fruits[0])
+print(len(fruits))
 ```
 
----
+Dict is used for key-value storage:
 
-## Day 4：Git 版本控制
+```python
+student = {"name": "feiyuai", "age": 22}
+print(student["name"])
+```
 
-### 核心概念
-- **仓库**：被 Git 管理的文件夹
-- **commit**：一次存档
-- **GitHub**：代码托管平台（远程仓库）
+### 3. File Reading and Writing
 
-### 日常四步循环
+Reading a file:
+
+```python
+with open("a.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+```
+
+Writing a file:
+
+```python
+with open("b.txt", "w", encoding="utf-8") as f:
+    f.write("hello")
+```
+
+### 4. Word Count Practice
+
+`work.py` reads a file, splits words, then counts frequency with a dict.
+
+Core idea:
+
+```python
+count[word] = count.get(word, 0) + 1
+```
+
+This means:
+
+- if the word already exists, increase its count
+- if it does not exist, start from `0`
+
+### 5. Git Basics
+
+The basic workflow:
+
 ```bash
-git status                 # 看状态
-git add 文件名              # 加入暂存区
-git commit -m "说明"       # 本地存档
-git push                   # 推送到 GitHub
+git status
+git add .
+git commit -m "message"
+git push
 ```
 
-### 配置信息
-```bash
-git config --global user.name "feiyuai"
-git config --global user.email "3553264347@qq.com"
+Key distinction:
+
+- `git add`: move changes into the staging area
+- `git commit`: create a local snapshot
+- `git push`: upload the snapshot to GitHub
+
+### 6. AI-Assisted Coding
+
+I used AI to help generate a practical todo app.
+
+What mattered most was not blindly copying code, but understanding:
+
+- what each function does
+- where data is stored
+- how command-line arguments are passed in
+- how to read errors and fix them
+
+### 7. FastAPI First Contact
+
+Basic route example:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "hello"}
 ```
 
-### .gitignore — 防止敏感文件泄露
-```
-.env
-__pycache__/
-*.pyc
-data/
-venv/
-```
+FastAPI is used to build APIs. Compared with earlier Flask practice, it gives us:
 
----
+- automatic request parsing
+- automatic type validation
+- automatic docs page at `/docs`
 
-## Day 5：AI 辅助编程
+### 8. Pydantic Request Models
 
-### 核心理念
-> AI 是副驾驶，我是机长。AI 省打字时间，不省思考时间。
+Example:
 
-### Prompt 四要素
-| 要素 | 说明 | 例子 |
-|------|------|------|
-| 技术栈 | 用什么语言/框架 | "用 Python" |
-| 输入 | 函数收到什么 | "接收命令行参数" |
-| 输出 | 函数返回什么 | "输出到终端" |
-| 约束 | 特殊要求 | "只用标准库" |
+```python
+from pydantic import BaseModel
 
-### 综合练习：待办事项程序 ✅
-
-用 Claude Code 生成 `todo.py`，实现了：
-- `python todo.py add "内容"` — 添加
-- `python todo.py list` — 列出
-- `python todo.py done 编号` — 标记完成
-- `python todo.py delete 编号` — 删除
-- 数据持久化到 `todo.json`
-
-**学到的新知识：**
-- `json.load()` / `json.dump()` — JSON ↔ Python 对象互转
-- `sys.argv` — 命令行参数（≈ C++ 的 argc/argv）
-- `os.path.exists()` — 检查文件是否存在
-- `datetime.now().strftime()` — 格式化时间
-- `if __name__ == "__main__"` — Python 入口模式
-
----
-
-## 📁 项目文件结构
-
-```
-e:\ai-knowledge-assistant\
-├── .gitignore          # Git 忽略规则
-├── todo.py             # 待办事项 CLI 程序
-├── todo.json           # 待办事项数据文件
-├── work.py             # 字符串练习
-└── README.md           # 本文件
+class DocumentCreate(BaseModel):
+    title: str
+    context: str
+    file_size: int = 0
+    file_type: str = "text"
 ```
 
----
+This model defines what the client must send.
 
-## 🎯 Week 1 总结
+Important ideas:
 
-| 维度 | 掌握程度 |
-|------|---------|
-| Python 基础语法 | 能看懂、能改代码 |
-| 数据结构（list/dict） | 会基本操作、会遍历 |
-| 文件读写 + JSON | 能读写文件、能持久化数据 |
-| Git 版本控制 | 会 add/commit/push |
-| AI 辅助编程 | 会给 Prompt、会调试 AI 代码 |
+- fields without defaults are required
+- fields with defaults are optional
+- FastAPI converts JSON into an object automatically
 
----
+That is why code like this works:
 
-## 📅 下周计划（Week 2）
+```python
+document.title
+```
 
-- FastAPI 项目骨架
-- GET/POST/PUT/DELETE 接口
-- MySQL 安装 + SQLAlchemy ORM
-- 文件上传接口（PDF/TXT 解析）
-- 推送到 GitHub
+Because `document` is already an object created from the request body.
 
----
+### 9. Why `422 Unprocessable Content` Happens
 
-> 🚀 6 周的目标：一个能写进简历的 RAG 知识库问答系统
+This error means:
+
+- the request reached the server
+- but the JSON body does not match the expected model
+
+Common causes:
+
+- missing required field
+- wrong field name
+- wrong field type
+
+Example:
+
+If the model expects:
+
+```json
+{
+  "title": "test",
+  "context": "body text"
+}
+```
+
+but you send:
+
+```json
+{
+  "title": "test",
+  "content": "body text"
+}
+```
+
+then FastAPI returns `422`.
+
+### 10. GET vs POST
+
+Simple memory rule:
+
+- `GET`: ask the server for data
+- `POST`: send data to the server
+
+Examples:
+
+- opening `/api/info` is usually `GET`
+- creating a document is usually `POST`
+
+## Current Code State
+
+The project is still in a learning state and not yet refactored.
+
+Known issues still present:
+
+- naming is inconsistent:
+  - `datebase.py` should later become `database.py`
+  - `schemy.py` should later become `schemas.py`
+  - `model.py` should later become `models.py`
+  - `requirement.txt` should later become `requirements.txt`
+- some Chinese text in files is garbled because of encoding issues during editing
+- `main.py` is still a learning prototype, not yet a full project skeleton
+- database persistence for documents is not fully connected yet
+
+This is normal for the current stage. The goal right now is understanding concepts first, then standardizing structure.
+
+## Main Bugs We Solved
+
+Examples of real mistakes and what they taught me:
+
+- `BaseModelc` vs `BaseModel`
+  - import names must be exact
+- `eho=False` vs `echo=False`
+  - keyword arguments must be spelled exactly
+- `content` vs `context`
+  - request model field names must match the data actually sent
+- `git add` vs `git commit`
+  - staging and committing are different steps
+- unsaved file changes in the editor
+  - running code uses the saved file on disk, not the unsaved editor buffer
+
+## Next Steps
+
+Planned next learning steps:
+
+1. Standardize filenames and project structure
+2. Connect FastAPI route to SQLite through SQLAlchemy
+3. Implement real document creation in the database
+4. Add document listing and retrieval APIs
+5. Move toward file upload, vectorization, and RAG
+
+## Short Reflection
+
+The biggest progress so far is not just writing code, but starting to understand:
+
+- how client and server communicate
+- how data is validated
+- how Python objects, request models, and database models are different
+- how to read errors instead of fearing them
+
+This repository is both a codebase and a learning record.
